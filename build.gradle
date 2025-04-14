@@ -11,22 +11,28 @@ repositories {
 }
 
 dependencies {
-    // Tarvittavat riippuvuudet, kuten Fabric API
-    modCompile "net.fabricmc:fabric-api:${project.fabricApiVersion}"
+    // Fabric API riippuvuus
+    modImplementation "net.fabricmc:fabric-api:${project.fabricApiVersion}"
 }
 
-// Määritellään, mitä tiedostoja luodaan ja minne
-jar {
-    archiveBaseName = 'biomemapmod'
-    archiveVersion = version
-    from(sourceSets.main.output)
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17) // Varmistetaan, että Java 17 on käytössä
+    }
 }
 
-// Asenna tai luo .jar tiedosto buildin aikana
-task createJar(type: Jar) {
-    archiveFileName = "biomemapmod.jar"
-    from sourceSets.main.output
+tasks {
+    jar {
+        archiveBaseName.set('biomemapmod')
+        archiveVersion.set(version)
+        from(sourceSets.main.output)
+    }
+
+    // Luo .jar tiedosto buildin aikana
+    register('createJar', Jar) {
+        archiveFileName.set("biomemapmod.jar")
+        from(sourceSets.main.output)
+    }
 }
 
-// Gradlen build-komennot
-build.dependsOn createJar
+build.dependsOn(tasks.named('createJar'))
