@@ -20,17 +20,10 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: 17
-        distribution: 'temurin' # Vaihtoehtona 'zulu'
+        distribution: 'temurin'
 
-    - name: Verify Java version
-      run: java -version
+    - name: Set executable permissions for gradlew
+      run: chmod +x ./gradlew
 
     - name: Build mod
       run: ./gradlew build
-
-    - name: Upload .jar to GitHub Releases
-      uses: softprops/action-gh-release@v1
-      with:
-        files: build/libs/*.jar
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
