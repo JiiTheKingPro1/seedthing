@@ -16,6 +16,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Ensure gradlew exists
+      run: ls -la
+
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
