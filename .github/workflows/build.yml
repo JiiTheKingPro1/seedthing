@@ -1,5 +1,4 @@
-- name: Build mod
-  run: ./gradlew build
+name: Build Fabric Mod
 
 on:
   push:
@@ -29,6 +28,5 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: build/libs/*.jar
-        distribution: "major" # Vaihtoehto voi olla "release", "patch", "minor" tai "major"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
