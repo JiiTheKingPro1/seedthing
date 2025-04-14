@@ -28,6 +28,6 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: build/libs/*.jar
-        distribution: "release" # Vaihtoehto voi olla "release", "patch", "minor" tai "major"
+        distribution: "patch" # Vaihtoehto voi olla "release", "patch", "minor" tai "major"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
