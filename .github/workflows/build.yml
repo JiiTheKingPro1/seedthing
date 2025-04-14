@@ -1,5 +1,5 @@
-name: Build Fabric Mod
-run: ./gradlew build
+- name: Build mod
+  run: ./gradlew build
 
 on:
   push:
