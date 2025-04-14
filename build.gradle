@@ -1,32 +1,32 @@
 plugins {
-    id 'fabric-loom' version '1.5-SNAPSHOT'
-    id 'maven-publish'
+    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'java'
 }
 
 group = 'com.example'
 version = '1.0.0'
-archivesBaseName = 'biomemapmod'
-
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
-}
 
 repositories {
     mavenCentral()
-    maven { url "https://maven.fabricmc.net/" }
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:1.21.5"
-    mappings "net.fabricmc:yarn:1.21.5+build.1:v2"
-    modImplementation "net.fabricmc:fabric-loader:0.15.7"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.91.2+1.21.5"
+    // Tarvittavat riippuvuudet, kuten Fabric API
+    modCompile "net.fabricmc:fabric-api:${project.fabricApiVersion}"
 }
 
-loom {
-    splitEnvironmentSourceSets()
+// Määritellään, mitä tiedostoja luodaan ja minne
+jar {
+    archiveBaseName = 'biomemapmod'
+    archiveVersion = version
+    from(sourceSets.main.output)
 }
 
-tasks.withType(JavaCompile).configureEach {
-    it.options.release.set(17)
+// Asenna tai luo .jar tiedosto buildin aikana
+task createJar(type: Jar) {
+    archiveFileName = "biomemapmod.jar"
+    from sourceSets.main.output
 }
+
+// Gradlen build-komennot
+build.dependsOn createJar
