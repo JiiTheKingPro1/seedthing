@@ -3,10 +3,10 @@ name: Build Fabric Mod
 on:
   push:
     branches:
-      - main  # Varmista, että työkalut ajetaan "main"-haaran pushin yhteydessä
+      - main
   pull_request:
     branches:
-      - main  # Ajetaan myös pull requestin yhteydessä
+      - main
 
 jobs:
   build:
@@ -28,5 +28,5 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: build/libs/*.jar
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        distribution: zip # Voit vaihtaa arv
+
